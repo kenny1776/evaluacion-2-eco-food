@@ -32,13 +32,15 @@ export default function Register() {
       await sendEmailVerification(cred.user);
 
       await saveUserData(cred.user.uid, {
+        uid: cred.user.uid,
         nombre,
-        tipo,
         email,
+        tipo: "cliente",
         direccion,
         comuna,
-        telefono,
+        telefono
       });
+
 
       Swal.fire("Registro exitoso", "Verifica tu correo para poder iniciar sesión.", "success");
       navigate("/login");
@@ -61,13 +63,15 @@ export default function Register() {
         <div className="mb-3">
           <label className="form-label">Correo</label>
           <input type="email" className="form-control" value={email}
-            onChange={(e) => setEmail(e.target.value)} required />
+            onChange={(e) => setEmail(e.target.value)} required 
+            maxLength={60}/>
         </div>
 
         <div className="mb-3">
           <label className="form-label">Contraseña</label>
           <input type="password" className="form-control" value={password}
-            onChange={(e) => setPassword(e.target.value)} required />
+            onChange={(e) => setPassword(e.target.value)} required 
+            maxLength={30}/>
           <div className="form-text">Debe tener mínimo 6 caracteres, con letras y números.</div>
         </div>
 
@@ -89,12 +93,15 @@ export default function Register() {
             onChange={(e) => setTelefono(e.target.value)} />
         </div>
 
-        <div className="mb-3">
-          <label className="form-label">Tipo de usuario</label>
-          <input type="text" className="form-control" value="cliente" disabled />
-        </div>
-
         <button type="submit" className="btn btn-success">Registrar</button>
+
+        <button
+        type="button"
+        className="btn btn-link mt-3"
+        onClick={() => navigate("/login")} >
+        ¿Tienes cuenta?
+        </button>
+
       </form>
     </div>
   );

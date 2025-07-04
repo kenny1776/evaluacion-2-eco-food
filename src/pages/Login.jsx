@@ -7,6 +7,9 @@ import {
 } from "firebase/auth";
 import { auth } from "../services/firebase";
 import Swal from "sweetalert2";
+import { getUserData } from "../services/userService";
+
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,9 +26,15 @@ export default function Login() {
         Swal.fire("Correo no verificado", "Verifica tu correo antes de iniciar sesión.", "warning");
         return;
       }
+      
+      const datos = await getUserData(cred.user.uid);
 
-      Swal.fire("Bienvenido", "Has iniciado sesión correctamente", "success");
-      navigate("/home");
+      if (datos.tipo === "admin") {
+        navigate("/admin/dashboard");
+      } else if (datos.tipo === "cliente") {
+        navigate("/cliente/dashboard");
+      }
+
     } catch (error) {
       Swal.fire("Error", "Credenciales incorrectas o fallo de red", "error");
     }
@@ -63,7 +72,7 @@ export default function Login() {
         <button
         type="button"
         className="btn btn-link mt-3"
-        onClick={() => navigate("/registro")} >
+        onClick={() => navigate("/register")} >
         ¿No tienes cuenta? Regístrate aquí
         </button>
 
