@@ -22,6 +22,10 @@ import AdminUsuarios from "../pages/admin/AdminUsuarios";
 import AdminAdministradores from "../pages/admin/AdminAdministradores";
 import AdminEmpresas from "../pages/admin/AdminEmpresas";
 
+// Empresa
+import PerfilEmpresa from "../pages/empresa/PerfilEmpresa";
+import Productos from "../pages/empresa/Productos";
+
 export default function AppRouter() {
   return (
     <Routes>
@@ -73,7 +77,24 @@ export default function AppRouter() {
           element={<div className="bg-warning p-3">TEST ADMIN</div>}
         />
       </Route>
+
+      {/* Rutas protegidas por rol: Empresa */}
+      <Route
+        path="/empresa/perfil"
+        element={
+          <ProtectedByRole allowed={["empresa"]}>
+            <PerfilEmpresa />
+          </ProtectedByRole>
+        }
+      />
+      <Route
+        path="/empresa/productos"
+        element={
+          <ProtectedByRole allowed={["empresa"]}>
+            <Productos />
+          </ProtectedByRole>
+        }
+      />
     </Routes>
   );
 }
-

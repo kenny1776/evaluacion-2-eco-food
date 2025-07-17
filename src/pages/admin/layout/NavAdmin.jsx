@@ -50,9 +50,7 @@ export default function NavAdmin() {
           </ul>
 
           <div className="d-flex align-items-center gap-3">
-            <div className="bg-primary text-white text-center p-2 rounded">
-              NAV ACTIVO
-            </div>
+          
             <span className="navbar-text">
               <CerrarSesion />
             </span>
